@@ -1,23 +1,36 @@
-import React from 'react';
-import 'react-native-gesture-handler';
-import { NavigationContainer } from '@react-navigation/native';
-import {  Text, View } from 'react-native';
-import { createStackNavigator } from '@react-navigation/stack';
-
-
-import FavouriteProducts from './screens/FavouriteProducts'
-import UnlovedProducts from './screens/UnlovedProducts'
-import ScanQR from './screens/ScanQR'
-
+import React from "react";
+import { View, StyleSheet } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createStackNavigator } from "@react-navigation/stack";
 
 const Stack = createStackNavigator();
+
+import FavouriteProducts from "./screens/FavouriteProducts";
+import UnlovedProducts from "./screens/UnlovedProducts";
+import ScanQR from "./screens/ScanQR";
 
 function ProductStack() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="FavouriteProducts" component={FavouriteProducts} />
-      <Stack.Screen name="UnlovedProducts" component={UnlovedProducts} />
-      <Stack.Screen name="ScanQR" component={ScanQR} />
+      <Stack.Screen
+        options={{ title: "Выберите любимые продукты" }}
+        name="FavouriteProducts"
+        component={FavouriteProducts}
+      />
+      <Stack.Screen
+        options={{
+          headerLeft: "",
+          title: "Выберите не любимые продукты",
+        }}
+        name="UnlovedProducts"
+        component={UnlovedProducts}
+      />
+      <Stack.Screen
+        options={{ headerLeft: "", title: "Сканируйте QR код" }}
+        name="ScanQR"
+        component={ScanQR}
+      />
     </Stack.Navigator>
   );
 }
@@ -25,8 +38,7 @@ function ProductStack() {
 export default function App() {
   return (
     <NavigationContainer>
-      <ProductStack/>
+      <ProductStack />
     </NavigationContainer>
   );
 }
-
