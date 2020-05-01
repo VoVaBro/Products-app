@@ -28,37 +28,56 @@ const { width, height } = Dimensions.get("screen");
 const UnlovedProducts = ({ navigation }) => {
   const [favouriteGroup, setFavouriteGroup] = useState([]);
 
-  const goToQR = () => {
-    navigation.navigate("ScanQR");
-  };
-
-  const produstsItem = [
-    { title: "Burger", icon: <Burger />, opacity: 1 },
-    { title: "Drinks", icon: <Drinks />, opacity: 1 },
+  const [produstsItem, setprodustsItem] = useState( [
+    { title: "Burger", icon: <Burger /> },
+    { title: "Drinks", icon: <Drinks /> },
     { title: "Sushi", icon: <Sushi /> },
-  ];
-  const produstsItem2 = [
-    { title: "Fish", icon: <Fish />, opacity: 1 },
-    { title: "Pizza", icon: <Pizza />, opacity: 1 },
+    { title: "Burger2", icon: <Burger /> },
+    { title: "Drinks2", icon: <Drinks /> },
+    { title: "Sushi2", icon: <Sushi /> },
+  ]);
+
+  const [produstsItem2, setprodustsItem2] = useState( [
+    { title: "Fish", icon: <Fish /> },
+    { title: "Pizza", icon: <Pizza /> },
     { title: "Pasta", icon: <Pasta /> },
-  ];
-  const produstsItem3 = [
-    { title: "Dessert", icon: <Dessert />, opacity: 1 },
-    { title: "ChinaFood", icon: <ChinaFood />, opacity: 1 },
+    { title: "Fish2", icon: <Fish /> },
+    { title: "Pizza2", icon: <Pizza /> },
+    { title: "Pasta2", icon: <Pasta /> },
+  ]);
+  const [produstsItem3, setprodustsItem3] = useState( [
+    { title: "Dessert", icon: <Dessert /> },
+    { title: "ChinaFood", icon: <ChinaFood /> },
     { title: "Frizz", icon: <Frizz /> },
-  ];
+    { title: "Dessert2", icon: <Dessert /> },
+    { title: "ChinaFood2", icon: <ChinaFood /> },
+    { title: "Frizz2", icon: <Frizz /> },
+  ]);
+
+  const goToUnlovedProd = () => {
+    setTimeout(() => {
+      navigation.navigate("ScanQR");
+    }, 0);
+  };
 
   const pressHandler = (title) => {
     if (favouriteGroup.includes(title)) {
-      setFavouriteGroup((prev) => prev.filter((t) => t !== title));
+      setTimeout(() => {
+        setFavouriteGroup((prev) => prev.filter((t) => t !== title));
+      }, 0);
     } else {
-      setFavouriteGroup((prev) => [...prev, title]);
+      setTimeout(() => {
+        setFavouriteGroup((prev) => [...prev, title]);
+      }, 0);
     }
   };
 
   return (
     <View style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={{ height: height }}
+      >
         <View style={styles.products}>
           <View style={{ flexDirection: "column" }}>
             {produstsItem.map((i) => (
@@ -69,7 +88,7 @@ const UnlovedProducts = ({ navigation }) => {
               >
                 {i.icon}
                 {favouriteGroup.includes(i.title) ? (
-                  <View style={styles.checked}>
+                  <View key={i.title} style={styles.checked}>
                     <Checked />
                   </View>
                 ) : null}
@@ -87,7 +106,7 @@ const UnlovedProducts = ({ navigation }) => {
               >
                 {i.icon}
                 {favouriteGroup.includes(i.title) ? (
-                  <View style={styles.checked}>
+                  <View key={i.title} style={styles.checked}>
                     <Checked />
                   </View>
                 ) : null}
@@ -104,7 +123,7 @@ const UnlovedProducts = ({ navigation }) => {
               >
                 {i.icon}
                 {favouriteGroup.includes(i.title) ? (
-                  <View style={styles.checked}>
+                  <View key={i.title} style={styles.checked}>
                     <Checked />
                   </View>
                 ) : null}
@@ -112,108 +131,51 @@ const UnlovedProducts = ({ navigation }) => {
             ))}
           </View>
         </View>
-
-        <View style={{ zIndex: 0 }}>
-          <View style={[styles.products_tab, { marginTop: 8 }]}>
-            <View style={{ flexDirection: "column" }}>
-              {produstsItem.map((i) => (
-                <TouchableOpacity
-                  key={i.title}
-                  onPress={() => pressHandler(i.title)}
-                  style={styles.icon_btn}
-                >
-                  {i.icon}
-                  {favouriteGroup.includes(i.title) ? (
-                    <View style={styles.checked}>
-                      <Checked />
-                    </View>
-                  ) : null}
-                </TouchableOpacity>
-              ))}
-            </View>
-
-            <View
-              style={{
-                flexDirection: "column",
-                marginLeft: 13,
-                marginRight: 13,
-              }}
-            >
-              {produstsItem2.map((i) => (
-                <TouchableOpacity
-                  key={i.title}
-                  onPress={() => pressHandler(i.title)}
-                  style={styles.icon_btn}
-                >
-                  {i.icon}
-                  {favouriteGroup.includes(i.title) ? (
-                    <View style={styles.checked}>
-                      <Checked />
-                    </View>
-                  ) : null}
-                </TouchableOpacity>
-              ))}
-            </View>
-
-            <View style={{ flexDirection: "column" }}>
-              {produstsItem3.map((i) => (
-                <TouchableOpacity
-                  key={i.title}
-                  onPress={() => pressHandler(i.title)}
-                  style={styles.icon_btn}
-                >
-                  {i.icon}
-                  {favouriteGroup.includes(i.title) ? (
-                    <View style={styles.checked}>
-                      <Checked />
-                    </View>
-                  ) : null}
-                </TouchableOpacity>
-              ))}
-            </View>
-          </View>
-        </View>
       </ScrollView>
 
-      <View
+      {/* <View style={styles.btn_view}> */}
+
+      <TouchableOpacity onPress={() => goToUnlovedProd()} style={[styles.next_btn]}>
+        <Text style={[styles.btn_text, { opacity: 1 }]}>Далее</Text>
+      </TouchableOpacity>
+
+      {/* </View> */}
+
+      {/* <View
         style={{
           width: 357,
           height: 0,
+        position: 'absolute',
+          alignItems: 'center'
+        }}
+      > */}
+      <Image
+        source={require("../assets/Gradient.png")}
+        style={{
           position: "absolute",
+          width: width,
+          marginLeft: 0,
+          height: 246,
+          marginTop: 580,
+        }}
+      />
+
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
+          width: 114,
+          position: "absolute",
+          marginTop: 710,
         }}
       >
-        <Image
-          source={require("../assets/Gradient.png")}
-          style={{
-            position: "absolute",
-            width: 385,
-            marginLeft: -20,
-            height: 246,
-            marginTop: height >= 812 ? 470 : 370,
-          }}
-        />
-      </View>
-
-      <View style={styles.btn_view}>
-        <TouchableOpacity onPress={goToQR} style={[styles.next_btn]}>
-          <Text style={[styles.btn_text, { opacity: 1 }]}>Далее</Text>
-        </TouchableOpacity>
-
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-            width: 114,
-            marginTop: 90,
-          }}
-        >
-          <Oval />
-          <Oval />
-          <Oval_a />
-        </View>
+        <Oval />
+        <Oval />
+        <Oval_a />
       </View>
     </View>
+    // </View>
   );
 };
 
@@ -221,16 +183,12 @@ export default UnlovedProducts;
 
 const styles = StyleSheet.create({
   container: {
-    marginLeft: 20,
-    position: "absolute",
     alignItems: "center",
-    zIndex: 0,
   },
   products: {
     flexDirection: "row",
     justifyContent: "space-between",
     marginTop: 23,
-    zIndex: 1,
   },
   products_tab: {
     flexDirection: "row",
@@ -264,6 +222,7 @@ const styles = StyleSheet.create({
     height: 63,
     backgroundColor: "#BBFF00",
     borderRadius: 40,
+    marginTop: height / 1.7,
   },
   btn_text: {
     fontWeight: "600",
@@ -272,17 +231,11 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
   btn_view: {
-    position: "absolute",
-    justifyContent: "space-between",
+    position: "relative",
     alignItems: "center",
     flexDirection: "column",
-    marginTop: height >= 812 ? height / 1.4 : height / 1.5,
-    zIndex: 2,
-  },
-  LinearGradientStyle: {
-    marginTop: 5,
-    width: 375,
     justifyContent: "center",
-    alignItems: "center",
+    marginTop: 0,
+    zIndex: 0,
   },
 });

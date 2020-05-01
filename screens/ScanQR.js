@@ -16,31 +16,44 @@ const { width, height } = Dimensions.get("screen");
 
 const ScanQR = ({ navigation }) => {
   return (
-    <View style={{ backgroundColor: "#FFFFFF", flex: 1 }}>
-      <View style={styles.container}>
-        {height >= 812 ? <Scan /> : <Scan_small />}
+    <View style={styles.container}>
+      {/* <View style={styles.btn_view}> */}
+
+      <View style={{ flex: 1, position: "absolute" }}>
+        <Scan />
       </View>
 
-      <View style={styles.btn_view}>
-        <TouchableOpacity style={[styles.next_btn]}>
-          <Text style={[styles.btn_text, { opacity: 1 }]}>Далее</Text>
-        </TouchableOpacity>
+      <TouchableOpacity style={[styles.next_btn]}>
+        <Text style={[styles.btn_text, { opacity: 1 }]}>Далее</Text>
+      </TouchableOpacity>
 
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-            width: 114,
-            marginTop: 110,
-          }}
-        >
-          <Oval />
-          <Oval />
-          <Oval />
-        </View>
+      {/* </View> */}
+
+      {/* <View
+        style={{
+          width: 357,
+          height: 0,
+        position: 'absolute',
+          alignItems: 'center'
+        }}
+      > */}
+
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
+          width: 114,
+          position: "absolute",
+          marginTop: 710,
+        }}
+      >
+        <Oval />
+        <Oval />
+        <Oval />
       </View>
     </View>
+    // </View>
   );
 };
 
@@ -48,9 +61,37 @@ export default ScanQR;
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: "center",
+    flex: 1,
+    backgroundColor: "#FFFFFF",
     alignItems: "center",
+  },
+  products: {
     flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 23,
+  },
+  products_tab: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 23,
+  },
+  icon_btn: {
+    marginTop: 8,
+    position: "relative",
+  },
+  checked: {
+    position: "absolute",
+    marginTop: 6,
+    marginLeft: 67,
+  },
+  tab_menu: {
+    position: "relative",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: 375,
+    height: 246,
+    marginTop: 5,
   },
   next_btn: {
     justifyContent: "center",
@@ -61,6 +102,7 @@ const styles = StyleSheet.create({
     height: 63,
     backgroundColor: "#BBFF00",
     borderRadius: 40,
+    marginTop: height / 1.5,
   },
   btn_text: {
     fontWeight: "600",
@@ -69,12 +111,11 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
   btn_view: {
+    position: "relative",
+    alignItems: "center",
+    flexDirection: "column",
     justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "row",
-    position: "absolute",
-    marginLeft: 130,
-    alignItems: "center",
-    marginTop: height >= 812 ? height / 1.5 : height / 1.5,
+    marginTop: 0,
+    zIndex: 0,
   },
 });
