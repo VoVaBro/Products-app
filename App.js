@@ -1,19 +1,32 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import 'react-native-gesture-handler';
+import { NavigationContainer } from '@react-navigation/native';
+import {  Text, View } from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
 
-export default function App() {
+
+import FavouriteProducts from './screens/FavouriteProducts'
+import UnlovedProducts from './screens/UnlovedProducts'
+import ScanQR from './screens/ScanQR'
+
+
+const Stack = createStackNavigator();
+
+function ProductStack() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-    </View>
+    <Stack.Navigator>
+      <Stack.Screen name="FavouriteProducts" component={FavouriteProducts} />
+      <Stack.Screen name="UnlovedProducts" component={UnlovedProducts} />
+      <Stack.Screen name="ScanQR" component={ScanQR} />
+    </Stack.Navigator>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default function App() {
+  return (
+    <NavigationContainer>
+      <ProductStack/>
+    </NavigationContainer>
+  );
+}
+
