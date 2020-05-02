@@ -7,6 +7,7 @@ import {
   Image,
   Dimensions,
   ScrollView,
+  FlatList,
 } from "react-native";
 
 import Burger from "../assets/Burger.svg";
@@ -32,29 +33,25 @@ const FavouriteProducts = ({ navigation }) => {
     { title: "Burger", icon: <Burger /> },
     { title: "Drinks", icon: <Drinks /> },
     { title: "Sushi", icon: <Sushi /> },
-    { title: "Burger2", icon: <Burger /> },
-    { title: "Drinks2", icon: <Drinks /> },
-    { title: "Sushi2", icon: <Sushi /> },
-  ]);
-
-  const [produstsItem2, setprodustsItem2] = useState([
     { title: "Fish", icon: <Fish /> },
     { title: "Pizza", icon: <Pizza /> },
     { title: "Pasta", icon: <Pasta /> },
-    { title: "Fish2", icon: <Fish /> },
-    { title: "Pizza2", icon: <Pizza /> },
-    { title: "Pasta2", icon: <Pasta /> },
-  ]);
-  const [produstsItem3, setprodustsItem3] = useState([
     { title: "Dessert", icon: <Dessert /> },
     { title: "ChinaFood", icon: <ChinaFood /> },
     { title: "Frizz", icon: <Frizz /> },
-    { title: "Dessert2", icon: <Dessert /> },
-    { title: "ChinaFood2", icon: <ChinaFood /> },
-    { title: "Frizz2", icon: <Frizz /> },
+
+    { title: "Burger1", icon: <Burger /> },
+    { title: "Drinks1", icon: <Drinks /> },
+    { title: "Sushi1", icon: <Sushi /> },
+    { title: "Fish1", icon: <Fish /> },
+    { title: "Pizza1", icon: <Pizza /> },
+    { title: "Pasta1", icon: <Pasta /> },
+    { title: "Dessert1", icon: <Dessert /> },
+    { title: "ChinaFood1", icon: <ChinaFood /> },
+    { title: "Frizz1", icon: <Frizz /> },
   ]);
 
-  const pressHandler =  (title) => {
+  const pressHandler = (title) => {
     if (favouriteGroup.includes(title)) {
       setFavouriteGroup((prev) => prev.filter((t) => t !== title));
     } else {
@@ -70,69 +67,34 @@ const FavouriteProducts = ({ navigation }) => {
     }
   };
 
+  const renderProductsList = ({ item }) => (
+    <TouchableOpacity
+      key={item.title}
+      onPress={() => pressHandler(item.title)}
+      style={styles.icon_btn}
+    >
+      {item.icon}
+      {favouriteGroup.includes(item.title) ? (
+        <View style={styles.checked}>
+          <Checked />
+        </View>
+      ) : null}
+    </TouchableOpacity>
+  );
+
   return (
     <View style={styles.container}>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        style={{ height: height }}
-      >
-        <View style={styles.products}>
-          <View style={{ flexDirection: "column" }}>
-            {produstsItem.map((i) => (
-              <TouchableOpacity
-                key={i.title}
-                onPress={() => pressHandler(i.title)}
-                style={styles.icon_btn}
-              >
-                {i.icon}
-                {favouriteGroup.includes(i.title) ? (
-                  <View key={i.title} style={styles.checked}>
-                    <Checked />
-                  </View>
-                ) : null}
-              </TouchableOpacity>
-            ))}
-          </View>
-          <View
-            style={{ flexDirection: "column", marginLeft: 13, marginRight: 13 }}
-          >
-            {produstsItem2.map((i) => (
-              <TouchableOpacity
-                key={i.title}
-                onPress={() => pressHandler(i.title)}
-                style={styles.icon_btn}
-              >
-                {i.icon}
-                {favouriteGroup.includes(i.title) ? (
-                  <View key={i.title} style={styles.checked}>
-                    <Checked />
-                  </View>
-                ) : null}
-              </TouchableOpacity>
-            ))}
-          </View>
 
-          <View style={{ flexDirection: "column" }}>
-            {produstsItem3.map((i) => (
-              <TouchableOpacity
-                key={i.title}
-                onPress={() => pressHandler(i.title)}
-                style={styles.icon_btn}
-              >
-                {i.icon}
-                {favouriteGroup.includes(i.title) ? (
-                  <View key={i.title} style={styles.checked}>
-                    <Checked />
-                  </View>
-                ) : null}
-              </TouchableOpacity>
-            ))}
-          </View>
-        </View>
-      </ScrollView>
 
-      {/* <View style={styles.btn_view}> */}
+  <FlatList
+    data={produstsItem}
+    renderItem={renderProductsList}
+    keyExtractor={item => item.title}
+    numColumns={3}
+    />
 
+
+    
       {favouriteGroup.length >= 1 ? (
         <TouchableOpacity onPress={goToUnlovedProd} style={[styles.next_btn]}>
           <Text style={[styles.btn_text, { opacity: 1 }]}>Далее</Text>
@@ -143,16 +105,6 @@ const FavouriteProducts = ({ navigation }) => {
         </View>
       )}
 
-      {/* </View> */}
-
-      {/* <View
-        style={{
-          width: 357,
-          height: 0,
-        position: 'absolute',
-          alignItems: 'center'
-        }}
-      > */}
       <Image
         source={require("../assets/Gradient.png")}
         style={{
@@ -173,13 +125,14 @@ const FavouriteProducts = ({ navigation }) => {
           position: "absolute",
           marginTop: 710,
         }}
-      >
+      ></View>
+
+      <View style={{width: 100, flexDirection: 'row', justifyContent: 'space-between'}}>
         <Oval />
         <Oval_a />
         <Oval_a />
       </View>
     </View>
-    // </View>
   );
 };
 
@@ -202,6 +155,7 @@ const styles = StyleSheet.create({
   icon_btn: {
     marginTop: 8,
     position: "relative",
+    padding: 5
   },
   checked: {
     position: "absolute",
