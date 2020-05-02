@@ -28,8 +28,7 @@ const { width, height } = Dimensions.get("screen");
 const FavouriteProducts = ({ navigation }) => {
   const [favouriteGroup, setFavouriteGroup] = useState([]);
 
-
-  const [produstsItem, setprodustsItem] = useState( [
+  const [produstsItem, setprodustsItem] = useState([
     { title: "Burger", icon: <Burger /> },
     { title: "Drinks", icon: <Drinks /> },
     { title: "Sushi", icon: <Sushi /> },
@@ -38,7 +37,7 @@ const FavouriteProducts = ({ navigation }) => {
     { title: "Sushi2", icon: <Sushi /> },
   ]);
 
-  const [produstsItem2, setprodustsItem2] = useState( [
+  const [produstsItem2, setprodustsItem2] = useState([
     { title: "Fish", icon: <Fish /> },
     { title: "Pizza", icon: <Pizza /> },
     { title: "Pasta", icon: <Pasta /> },
@@ -46,7 +45,7 @@ const FavouriteProducts = ({ navigation }) => {
     { title: "Pizza2", icon: <Pizza /> },
     { title: "Pasta2", icon: <Pasta /> },
   ]);
-  const [produstsItem3, setprodustsItem3] = useState( [
+  const [produstsItem3, setprodustsItem3] = useState([
     { title: "Dessert", icon: <Dessert /> },
     { title: "ChinaFood", icon: <ChinaFood /> },
     { title: "Frizz", icon: <Frizz /> },
@@ -55,37 +54,30 @@ const FavouriteProducts = ({ navigation }) => {
     { title: "Frizz2", icon: <Frizz /> },
   ]);
 
-  const pressHandler = (title) => {
+  const pressHandler =  (title) => {
     if (favouriteGroup.includes(title)) {
-      setTimeout(() => {
-setFavouriteGroup((prev) => prev.filter((t) => t !== title));
-      },0)
-      
+      setFavouriteGroup((prev) => prev.filter((t) => t !== title));
     } else {
-      setTimeout(() => {
-setFavouriteGroup((prev) => [...prev, title]);
-      },0)
-      
+      setFavouriteGroup((prev) => [...prev, title]);
     }
   };
-  
-  const goToUnlovedProd =  () => {
-    if (favouriteGroup.length >= 1) {
-      setTimeout(() => {
-navigation.navigate("UnlovedProducts");
-      },0)
-       
+
+  const NAV_ACTIVE = favouriteGroup.length >= 1;
+
+  const goToUnlovedProd = async () => {
+    if (NAV_ACTIVE) {
+      await navigation.navigate("UnlovedProducts");
     }
-  }
+  };
 
   return (
-    
-      <View style={styles.container}>
-        
-      <ScrollView showsVerticalScrollIndicator={false} style={{height: height}}>
-
+    <View style={styles.container}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={{ height: height }}
+      >
         <View style={styles.products}>
-          <View style={{ flexDirection: "column", }}>
+          <View style={{ flexDirection: "column" }}>
             {produstsItem.map((i) => (
               <TouchableOpacity
                 key={i.title}
@@ -120,7 +112,7 @@ navigation.navigate("UnlovedProducts");
             ))}
           </View>
 
-          <View style={{ flexDirection: "column",  }}>
+          <View style={{ flexDirection: "column" }}>
             {produstsItem3.map((i) => (
               <TouchableOpacity
                 key={i.title}
@@ -137,21 +129,20 @@ navigation.navigate("UnlovedProducts");
             ))}
           </View>
         </View>
-
       </ScrollView>
 
       {/* <View style={styles.btn_view}> */}
-        
-        {favouriteGroup.length >= 1 ? (
-          <TouchableOpacity onPress={goToUnlovedProd} style={[styles.next_btn]}>
-            <Text style={[styles.btn_text, { opacity: 1 }]}>Далее</Text>
-          </TouchableOpacity>
-        ) : (
-          <View style={styles.next_btn}>
-            <Text style={styles.btn_text}>Далее</Text>
-          </View>
-        )}
-        
+
+      {favouriteGroup.length >= 1 ? (
+        <TouchableOpacity onPress={goToUnlovedProd} style={[styles.next_btn]}>
+          <Text style={[styles.btn_text, { opacity: 1 }]}>Далее</Text>
+        </TouchableOpacity>
+      ) : (
+        <View style={styles.next_btn}>
+          <Text style={styles.btn_text}>Далее</Text>
+        </View>
+      )}
+
       {/* </View> */}
 
       {/* <View
@@ -162,37 +153,33 @@ navigation.navigate("UnlovedProducts");
           alignItems: 'center'
         }}
       > */}
-        <Image
-          source={require("../assets/Gradient.png")}
-          style={{
-            position: 'absolute',
-            width: width,
-            marginLeft:0,
-            height:  246,
-            marginTop: 580
-          }}
-        />
+      <Image
+        source={require("../assets/Gradient.png")}
+        style={{
+          position: "absolute",
+          width: width,
+          marginLeft: 0,
+          height: 246,
+          marginTop: 580,
+        }}
+      />
 
-          <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-            width: 114,
-            position: 'absolute',
-            marginTop: 710
-          }}
-        >
-          <Oval />
-          <Oval_a />
-          <Oval_a />
-        </View>
-
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
+          width: 114,
+          position: "absolute",
+          marginTop: 710,
+        }}
+      >
+        <Oval />
+        <Oval_a />
+        <Oval_a />
       </View>
+    </View>
     // </View>
-    
-    
-    
   );
 };
 
@@ -201,13 +188,11 @@ export default FavouriteProducts;
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
-   
   },
   products: {
     flexDirection: "row",
     justifyContent: "space-between",
     marginTop: 23,
-   
   },
   products_tab: {
     flexDirection: "row",
@@ -241,7 +226,7 @@ const styles = StyleSheet.create({
     height: 63,
     backgroundColor: "#BBFF00",
     borderRadius: 40,
-    marginTop: height / 1.7
+    marginTop: height / 1.7,
   },
   btn_text: {
     fontWeight: "600",
@@ -250,11 +235,11 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
   btn_view: {
-    position: 'relative',
+    position: "relative",
     alignItems: "center",
     flexDirection: "column",
-    justifyContent: 'center',
+    justifyContent: "center",
     marginTop: 0,
     zIndex: 0,
-  }
+  },
 });

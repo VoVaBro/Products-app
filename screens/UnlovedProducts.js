@@ -9,6 +9,8 @@ import {
   ScrollView,
 } from "react-native";
 
+
+
 import Burger from "../assets/Burger.svg";
 import ChinaFood from "../assets/ChinaFood.svg";
 import Dessert from "../assets/Dessert.svg";
@@ -26,6 +28,9 @@ import Checked from "../assets/Checked.svg";
 const { width, height } = Dimensions.get("screen");
 
 const UnlovedProducts = ({ navigation }) => {
+
+  
+
   const [favouriteGroup, setFavouriteGroup] = useState([]);
 
   const [produstsItem, setprodustsItem] = useState( [
@@ -55,9 +60,7 @@ const UnlovedProducts = ({ navigation }) => {
   ]);
 
   const goToUnlovedProd = () => {
-    setTimeout(() => {
-      navigation.navigate("ScanQR");
-    }, 0);
+   navigation.navigate('ScanQR')
   };
 
   const pressHandler = (title) => {
